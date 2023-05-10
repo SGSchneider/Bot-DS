@@ -1,6 +1,7 @@
 const {LoadCommands} = require("../../handlers/comandhandler")
 const fetch = require("node-superfetch")
 const {EmbedBuilder, CommandInteractionOptionResolver} = require("discord.js")
+const {Client} = require("spotify-api.js")
 var flag = 0
 var mensagem
 
@@ -11,6 +12,7 @@ module.exports = {
     once : true,
     async execute(client){
         console.log(client.user.tag + " Está Logado")
+        await RefreshSpotifyToken(client)
         await LoadCommands(client)
         setInterval(async() => {await CheckStream(client)}, 300000)
     }
@@ -50,3 +52,10 @@ async function CheckStream(client){
         }
     }
 }
+
+async function RefreshSpotifyToken(client){
+    const clientSpotify = await Client.create({refreshToken: true, token: { clientID :`${client.config.spotify_client}`, clientSecret : `${client.config.spotify_secret}`},onRefresh() {
+        console.log("Token do Spotify Atualizado");
+    }});
+    client.spotifyClient = clientSpotify
+}   

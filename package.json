@@ -1,6 +1,6 @@
 {
   "name": "bot-ds",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,7 @@
     "discord.js": "^14.9.0",
     "glob": "^8.0.3",
     "node-superfetch": "^0.3.3",
+    "spotify-api.js": "^9.2.5",
     "util": "^0.12.5"
   }
 }
