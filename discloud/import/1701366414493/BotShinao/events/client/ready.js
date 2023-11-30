@@ -51,20 +51,18 @@ async function CheckStream(client, user){
                 flag = 0
             }
         }
-    }catch(err){
+    }catch(UND_ERR_CONNECT_TIMEOUT){
         console.log("Failed to Check Stream!")
-        console.log("err")
     }
 }
 
 async function RefreshSpotifyToken(client){
     try{
         const clientSpotify = await Client.create({refreshToken: true, token: { clientID :`${client.config.spotify_client}`, clientSecret : `${client.config.spotify_secret}`},onRefresh() {
-            console.log("Token do Spotify Atualizado!")
+            console.log("Token do Spotify Atualizado");
         }});
         client.spotifyClient = clientSpotify
-    }catch(err){
-        console.log("Failed to Refresh Spotify Token!")
-        console.log(err)
+    }catch(UND_ERR_CONNECT_TIMEOUT){
+        console.log("Failed to Check Stream!")
     }
 }   
