@@ -15,6 +15,7 @@ module.exports = {
         await RefreshSpotifyToken(client)
         await LoadCommands(client)
         setInterval(async() => {await CheckStream(client, "s_schneider")}, 300000)
+        setInterval(async() => {await RefreshSpotifyToken(client)}, 3000000)
     }
 
 }
@@ -58,6 +59,7 @@ async function CheckStream(client, user){
 }
 
 async function RefreshSpotifyToken(client){
+    console.log("Iniciando refresh do token do Spotify!")
     try{
         const clientSpotify = await Client.create({refreshToken: true, token: { clientID :`${client.config.spotify_client}`, clientSecret : `${client.config.spotify_secret}`},onRefresh() {
             console.log("Token do Spotify Atualizado!")
