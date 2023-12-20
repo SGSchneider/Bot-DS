@@ -13,7 +13,14 @@ module.exports = {
      * @param {ChatInputCommandInteraction} interaction 
      */
     async execute(interaction, client){
+    
+        await interaction.reply({content: "Loading..."})
+
+
+
         const url = "https://api.spotify.com/v1/playlists/5KCzChPgw0b2MlsyCuNtW0?market=BR";
+
+        
         const file = new AttachmentBuilder('assets/Playlist.png');
         var options = {headers: {Authorization: "Bearer " + client.spotifyClient.token}};
         var playlist = await fetch(url, options).then( res => res.json() ).then( data => {return data} );
@@ -37,10 +44,10 @@ module.exports = {
             )
             .setFooter({ text: `${playlist.followers.total} Followers`, iconURL: 'https://www.freepnglogos.com/uploads/spotify-logo-png/file-spotify-logo-png-4.png' });
             
-            interaction.reply({embeds : [embed],content : "", files: [file]})
+            interaction.editReply({embeds : [embed],content : "", files: [file]})
         }catch(err){
             console.log(err)
-            interaction.reply({content : "Ocorreu um erro, por favor tente novamente em alguns instantes."})
+            interaction.editReply({content : "Ocorreu um erro, por favor tente novamente em alguns instantes."})
             
         }
     }
