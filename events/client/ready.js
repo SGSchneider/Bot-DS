@@ -11,10 +11,11 @@ module.exports = {
     name : "ready",
     once : true,
     async execute(client){
-        console.log(client.user.tag + " Está Logado")
+        console.log(client.user.tag + " Logged In")
         await RefreshSpotifyToken(client)
         await LoadCommands(client)
         setInterval(async() => {await CheckStream(client, "s_schneider")}, 300000)
+        setInterval(async() => {await RefreshSpotifyToken(client)}, 3000000)
     }
 
 }

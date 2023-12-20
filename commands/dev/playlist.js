@@ -1,4 +1,4 @@
-const {ChatInputCommandInteraction, SlashCommandBuilder, EmbedBuilder} = require("discord.js")
+const {ChatInputCommandInteraction, SlashCommandBuilder, EmbedBuilder, AttachmentBuilder} = require("discord.js")
 const Spotify = require("spotify-api.js")
 const sFetch = require("node-superfetch")
 
@@ -14,11 +14,12 @@ module.exports = {
      */
     async execute(interaction, client){
         const url = "https://api.spotify.com/v1/playlists/5KCzChPgw0b2MlsyCuNtW0?market=BR";
+        const file = new AttachmentBuilder('assets/Playlist.png');
         var options = {headers: {Authorization: "Bearer " + client.spotifyClient.token}};
         var playlist = await fetch(url, options).then( res => res.json() ).then( data => {return data} );
         var imagem
         try{
-            imagem = playlist.images[0].url
+            imagem = 'attachment://Playlist.png'
         }catch(err){
             console.log(err)
         }
@@ -36,9 +37,11 @@ module.exports = {
             )
             .setFooter({ text: `${playlist.followers.total} Followers`, iconURL: 'https://www.freepnglogos.com/uploads/spotify-logo-png/file-spotify-logo-png-4.png' });
             
-            interaction.reply({embeds : [embed],content : ""})
+            interaction.reply({embeds : [embed],content : "", files: [file]})
         }catch(err){
             console.log(err)
+            interaction.reply({content : "Ocorreu um erro, por favor tente novamente em alguns instantes."})
+            
         }
     }
 }
