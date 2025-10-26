@@ -23,7 +23,7 @@ module.exports = {
 async function CheckStream(client, user){
     try{
         const status = await fetch.get(`https://decapi.me/twitch/uptime/${user}`)
-        if(status.body !== "s_schneider is offline"){
+        if(status.body != "s_schneider is offline"){
             if (flag !== 0){
                 //client.channels.cache.get("549739489514487818").messages.fetch(mensagem.id).then((msg) => msg.edit({embeds : [embed]}))
             }
