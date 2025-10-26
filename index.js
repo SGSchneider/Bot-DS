@@ -1,4 +1,4 @@
-const {Client, GatewayIntentBits, Partials, Collection} = require("discord.js")
+const {Client, Partials, Collection} = require("discord.js")
 const {User, Message, GuildMember, ThreadMember} = Partials
 const client = new Client({
     intents : 3276799,
