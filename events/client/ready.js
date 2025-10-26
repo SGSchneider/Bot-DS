@@ -1,6 +1,6 @@
 const {LoadCommands} = require("../../handlers/comandhandler")
 const fetch = require("node-superfetch")
-const {EmbedBuilder, CommandInteractionOptionResolver} = require("discord.js")
+const {EmbedBuilder} = require("discord.js")
 const {Client} = require("spotify-api.js")
 var flag = 0
 var mensagem
@@ -11,7 +11,7 @@ module.exports = {
     name : "ready",
     once : true,
     async execute(client){
-        console.log(client.user.tag + " Logged In")
+        console.log(`${client.user.tag} Logged In`)
         await RefreshSpotifyToken(client)
         await LoadCommands(client)
         setInterval(async() => {await CheckStream(client, "s_schneider")}, 300000)
@@ -23,8 +23,8 @@ module.exports = {
 async function CheckStream(client, user){
     try{
         const status = await fetch.get(`https://decapi.me/twitch/uptime/${user}`)
-        if(status.body != "s_schneider is offline"){
-            if (flag != 0){
+        if(status.body !== "s_schneider is offline"){
+            if (flag !== 0){
                 //client.channels.cache.get("549739489514487818").messages.fetch(mensagem.id).then((msg) => msg.edit({embeds : [embed]}))
             }
             else{
@@ -43,7 +43,7 @@ async function CheckStream(client, user){
             } 
         }
         else{
-            if(flag != 0){
+            if(flag !== 0){
                 const embed = new EmbedBuilder()
                 .setTitle("STREAM OFFLINE")
                 .setDescription(`Mas não fique triste, logo logo tem mais!`)
@@ -54,7 +54,7 @@ async function CheckStream(client, user){
         }
     }catch(err){
         console.log("Failed to Check Stream!")
-        console.log("err")
+        console.log(err)
     }
 }
 

@@ -3,7 +3,7 @@ async function LoadCommands(client){
 
     await client.commands.clear()
 
-    let commandsArray = []
+    const commandsArray = []
     const Files = await LoadFiles("commands")
 
     var count = 0
